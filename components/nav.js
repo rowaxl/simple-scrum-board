@@ -1,59 +1,38 @@
 import Link from 'next/link';
 
-const links = [
-  { href: '//github.com/create-next-app/create-next-app', label: 'Github' }
-].map(link => {
-  link.key = `nav-link-${link.href}-${link.label}`
-  return link
-});
-
 const Nav = () => (
-  <nav>
-    <ul>
-      <li>
-        <Link href="/">
-          <a>Home</a>
-        </Link>
-      </li>
-      <ul>
-        {links.map(
-          ({ key, href, label }) => (
-            <li key={key}>
-              <Link href={href}>
-                <a>{label}</a>
-              </Link>
-            </li>
-          )
-        )}
-      </ul>
-    </ul>
+  <div id="navi">
+    <h2 id="app-title">Simple Scrum Simulator</h2>
+    <span>
+      <Link href={'//github.com/rowaxl/simple_scrum_simulator'}>
+        <a>{'Repository'}</a>
+      </Link>
+    </span>
 
     <style jsx>{`
       :global(body) {
         margin: 0;
-        font-family: -apple-system,BlinkMacSystemFont,Avenir Next,Avenir,Helvetica,sans-serif;
+        font-family: Roboto;
       }
-      nav {
-        text-align: center;
-      }
-      ul {
-        display: flex;
-        justify-content: space-between;
-      }
-      nav > ul {
-        padding: 4px 16px;
-      }
-      li {
-        display: flex;
-        padding: 6px 8px;
+      #navi {
+        width: 100vw;
+        height: 40px;
+        background-color: rgba(255, 255, 255, 0.6);
+        z-index: 1000;
       }
       a {
-        color: #067df7;
+        color: #044dd7;
         text-decoration: none;
-        font-size: 13px;
+        font-size: 16px;
+      }
+      #app-title {
+        display: inline;
+        color: #044dd7;
+        margin: 10px 20px;
+        height: 30px;
       }
     `}</style>
-  </nav>
+  </div>
 );
 
 export default Nav;
