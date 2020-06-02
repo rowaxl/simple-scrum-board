@@ -9,13 +9,13 @@ const useStyles = makeStyles((theme) => ({
     background: 'rgba(255, 255, 255, 0.7)'
   },
   taskCards: {
-    minWidth: 300,
+    minWidth: 275,
     border: '2px solid #444'
   },
   formControl: {
     margin: theme.spacing(1),
     minWidth: 200,
-  }
+  },
 }));
 
 export default () => {
@@ -37,13 +37,13 @@ export default () => {
             direction="row"
             justify="center"
             alignItems="flex-start"
+            spacing={1}
           >
 
             <Grid
               item
               xs={12}
               md={4}
-              justify="center"
             >
               <Grid
                 container
@@ -52,8 +52,26 @@ export default () => {
                 alignItems="flex-start"
                 spacing={1}
               >
-                <Grid item xs={12} md={12}>
-                  <Typography>TODO</Typography>
+                <Grid item>
+                  <Typography variant="h4" component="h4">TODO</Typography>
+                </Grid>
+
+                <Grid item>
+                  <Card className={styles.taskCards}>
+                    <CardContent>
+                      <Typography variant="h5">Task1</Typography>
+                      Make Something
+                    </CardContent>
+                    <CardActionArea>
+                      <FormControl className={styles.formControl}>
+                        <Select defaultValue="">
+                          <MenuItem value="p_1">JOHN DOE</MenuItem>
+                          <MenuItem value="p_2">JANE DOE</MenuItem>
+                          <MenuItem value="p_3">JACK DOE</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </CardActionArea>
+                  </Card>
                 </Grid>
               </Grid>
             </Grid>
@@ -62,7 +80,6 @@ export default () => {
               item
               xs={12}
               md={4}
-              justify="center"
             >
               <Grid
                 container
@@ -72,7 +89,7 @@ export default () => {
                 spacing={1}
               >
                 <Grid item xs={12} md={12}>
-                  <Typography>DOING</Typography>
+                  <Typography variant="h4" component="h4">DOING</Typography>
                 </Grid>
               </Grid>
             </Grid>
@@ -81,7 +98,6 @@ export default () => {
               item
               xs={12}
               md={4}
-              justify="center"
             >
               <Grid
                 container
@@ -91,7 +107,7 @@ export default () => {
                 spacing={1}
               >
                 <Grid item xs={12} md={12}>
-                  <Typography>DONE</Typography>
+                  <Typography variant="h4" component="h4">DONE</Typography>
                 </Grid>
               </Grid>
             </Grid>
