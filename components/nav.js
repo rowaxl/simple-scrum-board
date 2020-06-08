@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 const Nav = () => (
   <div id="navi">
-    <h2 id="app-title">Simple Scrum Simulator</h2>
+    <h2 id="app-title">Simple Scrum Board</h2>
     <span>
       <Link href={'//github.com/rowaxl/simple_scrum_simulator'}>
         <a>{'Repository'}</a>
