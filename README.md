@@ -1,8 +1,15 @@
-# Simple Scrum Simulator
+# Simple Scurm Board
 
 ## Overview
-Web-based javascript application for learning scrum development.
-Objective of this app is managing the resoucres(Human and Tech), making tasks and release the product.
+React based web application for task board with iteration function.
+Tasks can drag-and-drop to move.
+Each iteration can calculate summary of planed and achived story points by burndown chart.
+Basically it save data on local storage, but cloud save and share to teamate.
+
+## Pages
+- Home (Select board)
+- Task Board
+- About
 
 ### Frameworks
 - Next.js
@@ -12,4 +19,5 @@ Objective of this app is managing the resoucres(Human and Tech), making tasks an
 - [Vercel](https://vercel.com/)
 
 ### Reference
-- Background: Photo by [Annie Spratt](https://unsplash.com/@anniespratt?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on [Unsplash](https://unsplash.com)
+- Most of backgarounds are from [Unsplash](https://unsplash.com): 
+  - Blackboard: Photo by [Annie Spratt](https://unsplash.com/@anniespratt?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) 
