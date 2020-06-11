@@ -1,10 +1,10 @@
-import { Container, Grid, Typography } from '@material-ui/core'
+import { Container, Grid, Typography, Card, CardActionArea } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 
 import Head from '../components/head';
 import Nav from '../components/nav';
 import Background from '../components/background';
-import TaskCard from '../components/TaskCard';
+import TaskCard from '../components/taskCard';
 
 const useStyles = makeStyles((theme) => ({
   gridContainer: {
@@ -14,8 +14,18 @@ const useStyles = makeStyles((theme) => ({
     padding: '10px 15px',
     border: '1px solid #ddd',
     background: 'rgba(200, 200, 200, 0.5)',
-    height: 900,
-    overflow: 'scroll'
+    minHeight: 900
+  },
+  columnTitle: {
+    marginBottom: 15,
+    textAlign: 'center'
+  },
+  newTaskButton: {
+    padding: 5,
+    background: theme.palette.success.light,
+    color: '#555',
+    verticalAlign: 'center',
+    textAlign: 'center'
   }
 }));
 
@@ -64,10 +74,15 @@ export default () => {
               md={4}
             >
               <Grid item>
-                <Typography variant="h4" component="h4">TODO</Typography>
+                <Typography className={styles.columnTitle} variant="h4" component="h4">TODO</Typography>
               </Grid>
 
               <div className={styles.taskColumn}>
+                <Card className={styles.newTaskButton}>
+                  <CardActionArea>
+                    <Typography variant="h6">Create New Task</Typography>
+                  </CardActionArea>
+                </Card>
                 { mapTaskCards() }
               </div>
             </Grid>
@@ -78,7 +93,7 @@ export default () => {
               md={4}
             >
               <Grid item xs={12} md={12}>
-                <Typography variant="h4" component="h4">DOING</Typography>
+                <Typography className={styles.columnTitle} variant="h4" component="h4">DOING</Typography>
               </Grid>
 
               <Grid
@@ -98,7 +113,7 @@ export default () => {
               md={4}
             >
               <Grid item xs={12} md={12}>
-                <Typography variant="h4" component="h4">DONE</Typography>
+                <Typography className={styles.columnTitle} variant="h4" component="h4">DONE</Typography>
               </Grid>
 
               <Grid
