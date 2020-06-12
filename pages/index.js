@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { Container, Grid, Typography, Card, CardActionArea } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import { DragDropContext } from 'react-beautiful-dnd';
@@ -42,8 +43,19 @@ export default () => {
     5: { title: 'TODO6', description: 'Deploy and release first version' },
   };
 
-  const onDragEnd = e => {
-    console.log(e);
+  const [tasks, setTasks] = useState(dummyTasks);
+
+  const onDragEnd = result => {
+    const { source, destination, draggableId } = result;
+
+    if (!destination) return;
+
+    if (
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) return; // user returned to original place
+
+    // TODO: modify tasks to state and with column datas
   }
 
   return (
