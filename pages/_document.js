@@ -2,6 +2,7 @@ import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/core/styles';
 import theme from '../components/theme';
+import { resetServerContext } from 'react-beautiful-dnd';
 
 export default class MyDocument extends Document {
   render() {
@@ -49,6 +50,7 @@ MyDocument.getInitialProps = async (ctx) => {
   // Render app and page and get the context of the page with collected side effects.
   const sheets = new ServerStyleSheets();
   const originalRenderPage = ctx.renderPage;
+  resetServerContext();
 
   ctx.renderPage = () =>
     originalRenderPage({

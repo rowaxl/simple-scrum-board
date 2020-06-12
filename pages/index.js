@@ -1,10 +1,11 @@
 import { Container, Grid, Typography, Card, CardActionArea } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
+import { DragDropContext } from 'react-beautiful-dnd';
 
 import Head from '../components/head';
 import Nav from '../components/nav';
 import Background from '../components/background';
-import TaskCard from '../components/taskCard';
+import TaskList from '../components/taskList';
 
 const useStyles = makeStyles((theme) => ({
   gridContainer: {
@@ -39,14 +40,10 @@ export default () => {
     3: { title: 'TODO4', description: 'Make first commit' },
     4: { title: 'TODO5', description: 'Test' },
     5: { title: 'TODO6', description: 'Deploy and release first version' },
-  }
+  };
 
-  const mapTaskCards = () => {
-    return Object.keys(dummyTasks).map(id => (
-      <Grid item key={id}>
-        <TaskCard key={id} taskDetail={dummyTasks[id]} />
-      </Grid>
-    ))
+  const onDragEnd = e => {
+    console.log(e);
   }
 
   return (
@@ -58,7 +55,7 @@ export default () => {
       <Nav />
 
       <div className="app-wrap">
-        <Container fixed>
+        <Container>
 
           <Grid
             container
@@ -67,66 +64,69 @@ export default () => {
             alignItems="flex-start"
             spacing={3}
           >
+            <DragDropContext onDragEnd={onDragEnd}>
+              <Grid
+                item
+                xs={12}
+                md={4}
+              >
+                <Grid item>
+                  <Typography className={styles.columnTitle} variant="h4" component="h4">TODO</Typography>
+                </Grid>
 
-            <Grid
-              item
-              xs={12}
-              md={4}
-            >
-              <Grid item>
-                <Typography className={styles.columnTitle} variant="h4" component="h4">TODO</Typography>
-              </Grid>
-
-              <div className={styles.taskColumn}>
-                <Card className={styles.newTaskButton}>
-                  <CardActionArea>
-                    <Typography variant="h6">Create New Task</Typography>
-                  </CardActionArea>
-                </Card>
-                { mapTaskCards() }
-              </div>
-            </Grid>
-
-            <Grid
-              item
-              xs={12}
-              md={4}
-            >
-              <Grid item xs={12} md={12}>
-                <Typography className={styles.columnTitle} variant="h4" component="h4">DOING</Typography>
+                  
+                <div className={styles.taskColumn}>
+                  <Card className={styles.newTaskButton}>
+                    <CardActionArea>
+                      <Typography variant="h6">Create New Task</Typography>
+                    </CardActionArea>
+                  </Card>
+                  <TaskList listId="TODO" tasks={dummyTasks} />
+                </div>
               </Grid>
 
               <Grid
-                className={styles.taskColumn}
-                container
-                direction="column"
-                justify="center"
-                alignItems="flex-start"
-                spacing={1}
+                item
+                xs={12}
+                md={4}
               >
-              </Grid>
-            </Grid>
+                <Grid item xs={12} md={12}>
+                  <Typography className={styles.columnTitle} variant="h4" component="h4">DOING</Typography>
+                </Grid>
 
-            <Grid
-              item
-              xs={12}
-              md={4}
-            >
-              <Grid item xs={12} md={12}>
-                <Typography className={styles.columnTitle} variant="h4" component="h4">DONE</Typography>
+                <Grid
+                  className={styles.taskColumn}
+                  container
+                  direction="column"
+                  justify="center"
+                  alignItems="flex-start"
+                  spacing={1}
+                >
+                  <TaskList listId="DOING" tasks={[]} />
+                </Grid>
               </Grid>
 
               <Grid
-                className={styles.taskColumn}
-                container
-                direction="column"
-                justify="center"
-                alignItems="flex-start"
-                spacing={1}
+                item
+                xs={12}
+                md={4}
               >
-              </Grid>
-            </Grid>
+                <Grid item xs={12} md={12}>
+                  <Typography className={styles.columnTitle} variant="h4" component="h4">DONE</Typography>
+                </Grid>
 
+                <Grid
+                  className={styles.taskColumn}
+                  container
+                  direction="column"
+                  justify="center"
+                  alignItems="flex-start"
+                  spacing={1}
+                >
+                  <TaskList listId="DONE" tasks={[]} />
+                </Grid>
+              </Grid>
+            </DragDropContext>
           </Grid>
 
         </Container>
