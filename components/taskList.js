@@ -8,7 +8,7 @@ const useStyle = makeStyles(theme => ({
   taskArea: {
     background: 'rgba(50, 50, 50, 0.5)',
     borderRadius: 10,
-    minHeight: 30,
+    minHeight: 50,
     padding: 5,
     marginTop: 10,
     width: '100%'
@@ -21,12 +21,12 @@ const useStyle = makeStyles(theme => ({
     padding: '10px 15px',
     border: '1px solid #ddd',
     background: 'rgba(200, 200, 200, 0.5)',
-    minHeight: 900
+    minHeight: 90
   },
   newTaskButton: {
     padding: 5,
-    background: theme.palette.success.light,
-    color: '#555',
+    background: theme.palette.success.dark,
+    color: '#fff',
     verticalAlign: 'center',
     textAlign: 'center'
   }

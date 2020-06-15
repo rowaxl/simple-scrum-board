@@ -57,8 +57,8 @@ export default () => {
       destination.droppableId === source.droppableId &&
       destination.index === source.index
     ) {
-      return;
-    } // user returned to original place
+      return;  // when user returned to original place
+    }
 
     const column = columns[source.droppableId];
     const newTaskIds = Array.from(column.taskIds);
