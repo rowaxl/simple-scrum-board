@@ -13,6 +13,14 @@ const useStyle = makeStyles(theme => ({
     marginTop: 10,
     width: '100%'
   },
+  activeTaskArea: {
+    background: 'rgba(100, 120, 200, 0.5)',
+    borderRadius: 10,
+    minHeight: 50,
+    padding: 5,
+    marginTop: 10,
+    width: '100%'
+  },
   columnTitle: {
     marginBottom: 15,
     textAlign: 'center'
@@ -65,9 +73,9 @@ export default ({ column, tasks }) => {
         { newTaskButton }
 
         <Droppable droppableId={column.id}>
-          {provided => (
+          {(provided, snapshot) => (
             <div
-              className={styles.taskArea}
+              className={snapshot.isDraggingOver ? styles.activeTaskArea : styles.taskArea}
               ref={provided.innerRef}
               {...provided.droppableProps}
             >

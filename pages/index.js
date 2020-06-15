@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Container, Grid } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles';
 import { DragDropContext } from 'react-beautiful-dnd';
 
 import Head from '../components/head';
@@ -60,23 +59,48 @@ export default () => {
       return;  // when user returned to original place
     }
 
-    const column = columns[source.droppableId];
-    const newTaskIds = Array.from(column.taskIds);
+    const sourceColumn = columns[source.droppableId];
+    const destinationColumn = columns[destination.droppableId];
 
-    newTaskIds.splice(source.index, 1);
-    newTaskIds.splice(destination.index, 0, draggableId);
+    if (sourceColumn === destinationColumn) {
+      const newTaskIds = Array.from(sourceColumn.taskIds);
 
-    const newColumn = {
-      ...column,
-      taskIds: newTaskIds,
+      newTaskIds.splice(source.index, 1);
+      newTaskIds.splice(destination.index, 0, draggableId);
+  
+      const newColumn = {
+        ...sourceColumn,
+        taskIds: newTaskIds,
+      };
+
+      setColumns({
+        ...columns,
+        [newColumn.id]: newColumn,
+      });
+      return;
+    }
+
+    const sourceTaskIds = Array.from(sourceColumn.taskIds);
+    sourceTaskIds.splice(source.index, 1);
+
+    const newSourceColumn = {
+      ...sourceColumn,
+      taskIds: sourceTaskIds,
     };
 
-    const newColumns = {
+    const destinationTaskIds = Array.from(destinationColumn.taskIds);
+    destinationTaskIds.splice(destination.index, 0, draggableId);
+
+    const newDestinationColumn = {
+      ...destinationColumn,
+      taskIds: destinationTaskIds,
+    };
+
+    setColumns({
       ...columns,
-      [newColumn.id]: newColumn,
-    };
-
-    setColumns(newColumns);
+      [sourceColumn.id]: newSourceColumn,
+      [destinationColumn.id]: newDestinationColumn,
+    });
   }
 
   const renderColumns = initialColumnOrder.map(id => {

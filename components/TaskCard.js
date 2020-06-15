@@ -3,6 +3,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Draggable } from 'react-beautiful-dnd';
 
 const useStyles = makeStyles((theme) => ({
+  activeTaskCards: {
+    background: theme.palette.primary.light,
+    minWidth: 275,
+    border: '2px solid #444',
+    marginTop: 10,
+    marginBottom: 10,
+    fontSize: '1.2em',
+  },
   taskCards: {
     minWidth: 275,
     border: '2px solid #444',
@@ -24,9 +32,9 @@ export default ({ taskDetail, index }) => {
       draggableId={taskDetail.id}
       index={index}
     >
-      {provided => (
+      {(provided, snapshot) => (
         <Card
-          className={styles.taskCards}
+          className={snapshot.isDragging ? styles.activeTaskCards : styles.taskCards}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
@@ -35,17 +43,6 @@ export default ({ taskDetail, index }) => {
             <Typography variant="h5">{taskDetail.title}</Typography>
             {taskDetail.description}
           </CardContent>
-          <CardActionArea>
-            <FormControl className={styles.formControl}>
-              <InputLabel id="label-select-resource">Resource</InputLabel>
-              <Select labelId="label-select-resource" defaultValue="" variant="standard">
-                <MenuItem value="">None</MenuItem>
-                <MenuItem value="p_1">JOHN DOE</MenuItem>
-                <MenuItem value="p_2">JANE DOE</MenuItem>
-                <MenuItem value="p_3">JACK DOE</MenuItem>
-              </Select>
-            </FormControl>
-          </CardActionArea>
         </Card>
       )}
     </Draggable>
