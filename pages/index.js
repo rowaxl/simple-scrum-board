@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Grid } from '@material-ui/core'
 import { DragDropContext } from 'react-beautiful-dnd';
+import { nanoid } from 'nanoid';
 
 import Head from '../components/head';
 import Nav from '../components/nav';
@@ -14,20 +15,11 @@ const Columns = {
 }
 
 export default () => {
-  const dummyTasks = {
-    'task-1': { id: 'task-1', column: Columns.TODO, title: 'TODO1', description: 'Initialize project' },
-    'task-2': { id: 'task-2', column: Columns.TODO, title: 'TODO2', description: 'Design application' },
-    'task-3': { id: 'task-3', column: Columns.TODO, title: 'TODO3', description: 'Set development environment' },
-    'task-4': { id: 'task-4', column: Columns.TODO, title: 'TODO4', description: 'Make first commit' },
-    'task-5': { id: 'task-5', column: Columns.TODO, title: 'TODO5', description: 'Test' },
-    'task-6': { id: 'task-6', column: Columns.TODO, title: 'TODO6', description: 'Deploy and release first version' },
-  };
-
   const initialColumns = {
     [Columns.TODO]: {
       id: Columns.TODO,
       title: 'TO DO',
-      taskIds: ['task-1', 'task-2', 'task-3', 'task-4', 'task-5', 'task-6']
+      taskIds: []
     },
     [Columns.DOING]: {
       id: Columns.DOING,
@@ -43,9 +35,37 @@ export default () => {
 
   const initialColumnOrder = [Columns.TODO, Columns.DOING, Columns.DONE];
 
-  const [tasks, setTasks] = useState(dummyTasks);
+  const [tasks, setTasks] = useState({});
 
   const [columns, setColumns] = useState(initialColumns);
+
+  const onClickNewTask = () => {
+    const newTask = {
+      id: nanoid(),
+      column: Columns.TODO,
+      title: 'New TODO',
+      description: ''
+    };
+
+    setTasks({
+      [newTask.id]: newTask,
+      ...tasks,
+    });
+
+    const newTaskIds = Array.from(columns[Columns.TODO].taskIds);
+
+    newTaskIds.splice(0, 0, newTask.id);
+
+    const newColumns = {
+      ...columns,
+      [Columns.TODO]: {
+        ...columns[Columns.TODO],
+        taskIds: newTaskIds,
+      }
+    };
+
+    setColumns(newColumns);
+  }
 
   const onDragEnd = result => {
     const { source, destination, draggableId } = result;
@@ -107,7 +127,7 @@ export default () => {
     const column = columns[id];
 
     return (
-      <TaskList key={column.id} column={column} tasks={column.taskIds.map(taskId => tasks[taskId])} />
+      <TaskList key={column.id} column={column} tasks={column.taskIds.map(taskId => tasks[taskId])} onClickNewTask={onClickNewTask} />
     );
   })
 

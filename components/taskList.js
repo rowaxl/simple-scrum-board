@@ -46,14 +46,20 @@ const Columns = {
   DONE: 'DONE'
 }
 
-export default ({ column, tasks }) => {
+export default ({ column, tasks, onClickNewTask }) => {
   const styles = useStyle();
 
-  const renderTasks = () => tasks.map((task, index) => <TaskCard key={task.id} taskDetail={task} index={index} />);
+  const renderTasks = () => {
+    if (tasks.length < 1) return;
+
+    console.log(tasks)
+
+    return tasks.map((task, index) => <TaskCard key={task.id} taskDetail={task} index={index} />)
+  };
 
   const newTaskButton = column.id === Columns.TODO ? (
     <Card className={styles.newTaskButton}>
-      <CardActionArea>
+      <CardActionArea onClick={onClickNewTask}>
         <Typography variant="h6">Create New Task</Typography>
       </CardActionArea>
     </Card>
