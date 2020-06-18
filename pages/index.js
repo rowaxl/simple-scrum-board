@@ -140,31 +140,33 @@ export default () => {
       <Nav />
 
       <div className="app-wrap">
-        <Container>
 
-          <Grid
-            container
-            direction="row"
-            justify="center"
-            alignItems="flex-start"
-            spacing={3}
-          >
-            <DragDropContext onDragEnd={onDragEnd}>
-              { renderColumns }
-            </DragDropContext>
-          </Grid>
+        <Grid
+          container
+          direction="row"
+          justify="center"
+          alignItems="flex-start"
+          spacing={3}
+        >
+          <DragDropContext onDragEnd={onDragEnd}>
+            { renderColumns }
+          </DragDropContext>
+        </Grid>
 
-        </Container>
       </div>
     
 
       <style jsx>{`
       .app-wrap {
         height: 100vh;
+        width: 100vw;
+        min-width: 900px;
         background: rgba(0, 0, 0, 0.3);
         z-index: 1001;
         color: #fff;
         padding-top: 60px;
+        padding-right: 20px;
+        padding-left: 20px;
       }
     `}</style>
     </div>
