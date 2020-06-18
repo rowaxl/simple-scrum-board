@@ -44,7 +44,7 @@ export default () => {
       id: nanoid(),
       column: Columns.TODO,
       title: 'New TODO',
-      description: ''
+      description: 'lolem ipsum....'
     };
 
     setTasks({

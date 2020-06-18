@@ -8,9 +8,8 @@ const useStyle = makeStyles(theme => ({
   taskArea: {
     background: 'rgba(50, 50, 50, 0.5)',
     borderRadius: 10,
-    minHeight: 50,
+    minHeight: 10,
     padding: 5,
-    marginTop: 10,
     width: '100%'
   },
   activeTaskArea: {
@@ -29,14 +28,18 @@ const useStyle = makeStyles(theme => ({
     padding: '10px 15px',
     border: '1px solid #ddd',
     background: 'rgba(200, 200, 200, 0.5)',
-    minHeight: 90
+    minHeight: 100,
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    flexDirection: 'column',
   },
   newTaskButton: {
     padding: 5,
     background: theme.palette.success.dark,
     color: '#fff',
     verticalAlign: 'center',
-    textAlign: 'center'
+    textAlign: 'center',
+    marginBottom: 10
   }
 }));
 
@@ -51,8 +54,6 @@ export default ({ column, tasks, onClickNewTask }) => {
 
   const renderTasks = () => {
     if (tasks.length < 1) return;
-
-    console.log(tasks)
 
     return tasks.map((task, index) => <TaskCard key={task.id} taskDetail={task} index={index} />)
   };

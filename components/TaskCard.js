@@ -12,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 10,
     marginBottom: 10,
     fontSize: '1.2em',
+    position: 'relative'
   },
   taskCards: {
     minWidth: 275,
@@ -19,6 +20,12 @@ const useStyles = makeStyles((theme) => ({
     marginTop: 10,
     marginBottom: 10,
     fontSize: '1.2em',
+    position: 'relative'
+  },
+  cardButton: {
+    position: 'absolute',
+    right: 0,
+    top: 0
   },
   editButton: {
     color: theme.palette.success.dark,
@@ -58,6 +65,7 @@ export default ({ taskDetail, index, update }) => {
           ref={provided.innerRef}
         >
           <IconButton
+            className={styles.cardButton}
             aria-label="more"
             aria-haspopup="true"
             onClick={onMenuClick}
