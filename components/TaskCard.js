@@ -20,7 +20,7 @@ import {
 } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import { Draggable } from 'react-beautiful-dnd';
-
+import ReactMarkdown from 'react-markdown';
 
 const useStyles = makeStyles((theme) => ({
   activeTaskCards: {
@@ -198,7 +198,7 @@ export default ({ taskDetail, index, update }) => {
     return (
       <CardContent>
         <Typography variant="h5">{taskDetail.title}</Typography>
-        <pre className={styles.descriptionView}>{taskDetail.description}</pre>
+        <ReactMarkdown className={styles.descriptionView} source={taskDetail.description} />
       </CardContent>
     );
   }
