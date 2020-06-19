@@ -123,11 +123,24 @@ export default () => {
     });
   }
 
+  const onHandleUpdateTask = updated => {
+    setTasks({
+      ...tasks,
+      [updated.id]: updated
+    });
+  };
+
   const renderColumns = initialColumnOrder.map(id => {
     const column = columns[id];
 
     return (
-      <TaskList key={column.id} column={column} tasks={column.taskIds.map(taskId => tasks[taskId])} onClickNewTask={onClickNewTask} />
+      <TaskList
+        key={column.id}
+        column={column}
+        tasks={column.taskIds.map(taskId => tasks[taskId])}
+        onClickNewTask={onClickNewTask}
+        onHandleUpdateTask={onHandleUpdateTask}
+      />
     );
   })
 

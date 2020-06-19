@@ -1,5 +1,23 @@
-import { Card, CardContent, IconButton, Menu, MenuItem, ListItemIcon, Typography, Fade } from '@material-ui/core'
-import { Menu as MenuIcon, Edit as EditIcon, Check as CheckIcon } from '@material-ui/icons';
+import { useState } from 'react';
+import {
+  Card,
+  CardContent,
+  Button,
+  IconButton,
+  Menu,
+  MenuItem,
+  ListItemIcon,
+  Typography,
+  Fade,
+  TextField,
+} from '@material-ui/core'
+import {
+  Menu as MenuIcon,
+  Edit as EditIcon,
+  Check as CheckIcon,
+  SaveAlt as SaveIcon,
+  Clear as ClearIcon,
+} from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import { Draggable } from 'react-beautiful-dnd';
 
@@ -31,13 +49,59 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.success.dark,
   },
   archiveButton: {
-    color: theme.palette.grey[500]
+    color: theme.palette.grey[500],
+  },
+  discardButton: {
+    color: theme.palette.grey[500],
+    width: '50%',
+    marginLeft: 10,
+    marginRight: 10
+  },
+  saveButton: {
+    color: theme.palette.text.primary,
+    width: '50%',
+    marginLeft: 10,
+    marginRight: 10
+  },
+  titleForm: {
+    width: '100%',
+    marginTop: 10
+  },
+  descriptionForm: {
+    width: '100%',
+    marginTop: 20
+  },
+  buttonWrap: {
+    display: 'inline-flex',
+    width: '100%',
+    marginTop: 20
+  },
+  cardMenuHide: {
+    display: 'none',
+    position: 'absolute',
+    right: 0,
+    top: 0
+  },
+  cardMenuActive: {
+    display: 'block',
+    position: 'absolute',
+    right: 0,
+    top: 0
+  },
+  descriptionView: {
+    fontSize: '1.1em',
+    width: '100%',
+    fontFamily: "roboto",
   }
 }));
 
 export default ({ taskDetail, index, update }) => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+
+  const [editMode, setEditMode] = useState(false);
+
+  const [curTask, setCurTask] = useState(taskDetail);
 
   const styles = useStyles();
 
@@ -49,8 +113,95 @@ export default ({ taskDetail, index, update }) => {
     setAnchorEl(null);
   };
 
-  const handleUpdate = () => { };
+  const handleUpdate = () => {
+    setEditMode(!editMode);
+    setAnchorEl(null);
+  };
+
   const handleArchive = () => { };
+
+  const handleDiscard = () => {
+    setEditMode(false);
+  };
+
+  const handleSave = () => {
+    update(curTask);
+    setEditMode(false);
+  };
+
+  const onChangeTitle = ({ target }) => {
+    setCurTask({
+      ...curTask,
+      title: target.value
+    });
+  };
+
+  const onChangeDescrption = ({ target }) => {
+    setCurTask({
+      ...curTask,
+      description: target.value
+    });
+  };
+
+  const renderTask = () => {
+    if (editMode) {
+      return (
+        <CardContent>
+          <TextField
+            label="Title"
+            className={styles.titleForm}
+            autoFocus={true}
+            color="secondary"
+            variant="outlined"
+            size="medium"
+            defaultValue={taskDetail.title}
+            onChange={onChangeTitle}
+          />
+
+          <TextField
+            label="Description"
+            className={styles.descriptionForm}
+            multiline={true}
+            color="secondary"
+            variant="outlined"
+            size="medium"
+            defaultValue={taskDetail.description}
+            onChange={onChangeDescrption}
+          />
+
+          <div className={styles.buttonWrap}>
+            <Button
+              className={styles.discardButton}
+              variant="contained"
+              color="default"
+              startIcon={<ClearIcon />}
+              onClick={handleDiscard}
+            >
+              Discard
+            </Button>
+
+            <Button
+              className={styles.saveButton}
+              variant="contained"
+              color="primary"
+              startIcon={<SaveIcon />}
+              onClick={handleSave}
+            >
+              Save
+            </Button>
+          </div>
+
+        </CardContent>
+      );
+    }
+
+    return (
+      <CardContent>
+        <Typography variant="h5">{taskDetail.title}</Typography>
+        <pre className={styles.descriptionView}>{taskDetail.description}</pre>
+      </CardContent>
+    );
+  }
 
   return (
     <Draggable
@@ -64,45 +215,44 @@ export default ({ taskDetail, index, update }) => {
           {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
-          <IconButton
-            className={styles.cardButton}
-            aria-label="more"
-            aria-haspopup="true"
-            onClick={onMenuClick}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Menu
-            id="card-menu"
-            anchorEl={anchorEl}
-            keepMounted
-            open={open}
-            onClose={onMenuClose}
-            TransitionComponent={Fade}
-          >
-            <MenuItem onClick={handleUpdate}>
-              <ListItemIcon>
+          <div className={editMode ? styles.cardMenuHide : styles.cardMenuActive}>
+            <IconButton
+              aria-label="more"
+              aria-haspopup="true"
+              onClick={onMenuClick}
+            >
+              <MenuIcon />
+            </IconButton>
+
+            <Menu
+              id="card-menu"
+              anchorEl={anchorEl}
+              keepMounted
+              open={open}
+              onClose={onMenuClose}
+              TransitionComponent={Fade}
+            >
+              <MenuItem onClick={handleUpdate}>
+                <ListItemIcon>
                   <EditIcon className={styles.editButton} color="inherit" />
                 </ListItemIcon>
                 <ListItemIcon>
                   <Typography className={styles.editButton} fontSize="small">Update</Typography>
-              </ListItemIcon>
-            </MenuItem>
+                </ListItemIcon>
+              </MenuItem>
 
-            <MenuItem onClick={handleArchive}>
-              <ListItemIcon>
-                <CheckIcon className={styles.archiveButton} color="inherit" />
-              </ListItemIcon>
-              <ListItemIcon>
-                <Typography className={styles.archiveButton} fontSize="small">Archive</Typography>
-              </ListItemIcon>
-            </MenuItem>
-          </Menu>
+              <MenuItem onClick={handleArchive}>
+                <ListItemIcon>
+                  <CheckIcon className={styles.archiveButton} color="inherit" />
+                </ListItemIcon>
+                <ListItemIcon>
+                  <Typography className={styles.archiveButton} fontSize="small">Archive</Typography>
+                </ListItemIcon>
+              </MenuItem>
+            </Menu>
+          </div>
 
-          <CardContent>
-            <Typography variant="h5">{taskDetail.title}</Typography>
-            {taskDetail.description}
-          </CardContent>
+          { renderTask() }
         </Card>
       )}
     </Draggable>

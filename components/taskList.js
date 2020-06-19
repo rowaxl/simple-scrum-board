@@ -49,13 +49,13 @@ const Columns = {
   DONE: 'DONE'
 }
 
-export default ({ column, tasks, onClickNewTask }) => {
+export default ({ column, tasks, onClickNewTask, onHandleUpdateTask }) => {
   const styles = useStyle();
 
   const renderTasks = () => {
     if (tasks.length < 1) return;
 
-    return tasks.map((task, index) => <TaskCard key={task.id} taskDetail={task} index={index} />)
+    return tasks.map((task, index) => <TaskCard key={task.id} taskDetail={task} index={index} update={onHandleUpdateTask} />)
   };
 
   const newTaskButton = column.id === Columns.TODO ? (
