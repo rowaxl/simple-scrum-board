@@ -1,4 +1,5 @@
-import 'fontsource-roboto'
+import 'fontsource-roboto';
+import 'github-markdown-css'
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ThemeProvider } from '@material-ui/core/styles';

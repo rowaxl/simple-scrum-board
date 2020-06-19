@@ -24,7 +24,8 @@ import ReactMarkdown from 'react-markdown';
 
 const useStyles = makeStyles((theme) => ({
   activeTaskCards: {
-    background: theme.palette.success.light,
+    background: theme.palette.grey[400],
+    opacity: 0.9,
     minWidth: 275,
     border: '2px solid #444',
     marginTop: 10,
@@ -198,7 +199,10 @@ export default ({ taskDetail, index, update }) => {
     return (
       <CardContent>
         <Typography variant="h5">{taskDetail.title}</Typography>
-        <ReactMarkdown className={styles.descriptionView} source={taskDetail.description} />
+
+        <div className="markdown-body">
+          <ReactMarkdown className={styles.descriptionView} source={taskDetail.description} />
+        </div>
       </CardContent>
     );
   }

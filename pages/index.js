@@ -43,8 +43,8 @@ export default () => {
     const newTask = {
       id: nanoid(),
       column: Columns.TODO,
-      title: 'New TODO',
-      description: 'lolem ipsum....'
+      title: 'New Task',
+      description: '### Description\n- Edit this card\n- Make a plan to process this task'
     };
 
     setTasks({
