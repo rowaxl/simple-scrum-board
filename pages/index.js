@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Grid } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 import { DragDropContext } from 'react-beautiful-dnd';
 import { nanoid } from 'nanoid';
 
@@ -44,7 +44,8 @@ export default () => {
       id: nanoid(),
       column: Columns.TODO,
       title: 'New Task',
-      description: '### Description\n- Edit this card\n- Make a plan to process this task'
+      description: '### Description\n- Edit this card\n- Make a plan to process this task',
+      archived: false,
     };
 
     setTasks({

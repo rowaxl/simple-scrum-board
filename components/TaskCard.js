@@ -119,7 +119,14 @@ export default ({ taskDetail, index, update }) => {
     setAnchorEl(null);
   };
 
-  const handleArchive = () => { };
+  const handleArchive = () => {
+    setCurTask({
+      ...curTask,
+      archived: true,
+    });
+
+    update(curTask);
+  };
 
   const handleDiscard = () => {
     setEditMode(false);

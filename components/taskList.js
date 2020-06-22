@@ -55,7 +55,7 @@ export default ({ column, tasks, onClickNewTask, onHandleUpdateTask }) => {
   const renderTasks = () => {
     if (tasks.length < 1) return;
 
-    return tasks.map((task, index) => <TaskCard key={task.id} taskDetail={task} index={index} update={onHandleUpdateTask} />)
+    return tasks.filter(e => !e.archived).map((task, index) => <TaskCard key={task.id} taskDetail={task} index={index} update={onHandleUpdateTask} />)
   };
 
   const newTaskButton = column.id === Columns.TODO ? (
