@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Grid, Typography, Card, CardActionArea } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
@@ -10,7 +11,8 @@ const useStyle = makeStyles(theme => ({
     borderRadius: 10,
     minHeight: 10,
     padding: 5,
-    width: '100%'
+    width: '100%',
+    transition: 'background 0.3s ease'
   },
   activeTaskArea: {
     background: 'rgba(100, 120, 200, 0.5)',
@@ -18,7 +20,8 @@ const useStyle = makeStyles(theme => ({
     minHeight: 50,
     padding: 5,
     marginTop: 10,
-    width: '100%'
+    width: '100%',
+    transition: 'background 0.3s ease'
   },
   columnTitle: {
     marginBottom: 15,
@@ -51,11 +54,23 @@ const Columns = {
 
 export default ({ column, index, tasks, onClickNewTask, onHandleUpdateTask }) => {
   const styles = useStyle();
+  const [renderedTasks, setRenderedTasks] = useState(tasks);
+
+  useEffect(() => {
+    // do render whole tasks when index changed
+    renderTasks();
+  }, [tasks]);
 
   const renderTasks = () => {
     if (tasks.length < 1) return;
 
-    return tasks.filter(e => !e.archived).map((task, index) => <TaskCard key={task.id} taskDetail={task} index={index} update={onHandleUpdateTask} />)
+    setRenderedTasks(
+      tasks
+        .filter(e => !e.archived)
+        .map((task, index) =>
+          <TaskCard key={task.id} taskDetail={task} index={index} update={onHandleUpdateTask} />
+        )
+    );
   };
 
   const newTaskButton = column.id === Columns.TODO ? (
@@ -91,7 +106,7 @@ export default ({ column, index, tasks, onClickNewTask, onHandleUpdateTask }) =>
                   ref={provided.innerRef}
                   {...provided.droppableProps}
                 >
-                  { renderTasks() }
+                  { renderedTasks }
                   { provided.placeholder }
                 </div>
               )}
