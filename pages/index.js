@@ -6,7 +6,7 @@ import { nanoid } from 'nanoid';
 import Head from '../components/head';
 import Nav from '../components/nav';
 import Background from '../components/background';
-import TaskList from '../components/TaskList';
+import TaskColumn from '../components/TaskColumn';
 
 const Columns = {
   TODO: 'TODO',
@@ -144,7 +144,7 @@ export default () => {
     const column = columns[id];
 
     return (
-      <TaskList
+      <TaskColumn
         key={column.id}
         column={column}
         index={index}

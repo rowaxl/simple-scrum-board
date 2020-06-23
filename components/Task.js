@@ -10,7 +10,7 @@ import {
   Typography,
   Fade,
   TextField,
-} from '@material-ui/core'
+} from '@material-ui/core';
 import {
   Menu as MenuIcon,
   Edit as EditIcon,

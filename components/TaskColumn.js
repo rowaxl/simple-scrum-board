@@ -3,7 +3,7 @@ import { Grid, Typography, Card, CardActionArea } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 
-import TaskCard from './TaskCard';
+import Task from './Task';
 
 const useStyle = makeStyles(theme => ({
   taskArea: {
@@ -68,7 +68,7 @@ export default ({ column, index, tasks, onClickNewTask, onHandleUpdateTask }) =>
       tasks
         .filter(e => !e.archived)
         .map((task, index) =>
-          <TaskCard key={task.id} taskDetail={task} index={index} update={onHandleUpdateTask} />
+          <Task key={task.id} taskDetail={task} index={index} update={onHandleUpdateTask} />
         )
     );
   };
