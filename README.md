@@ -3,6 +3,7 @@
 ## Overview
 React.js based simple task board web application.
 Tasks and columns can drag-and-drop to move.
+Task support markdowns.
 It save todo data on local storage automatically.
 
 ## Pages
