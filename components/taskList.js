@@ -1,6 +1,6 @@
 import { Grid, Typography, Card, CardActionArea } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
-import { Droppable } from 'react-beautiful-dnd';
+import { Draggable, Droppable } from 'react-beautiful-dnd';
 
 import TaskCard from './taskCard';
 
@@ -49,7 +49,7 @@ const Columns = {
   DONE: 'DONE'
 }
 
-export default ({ column, tasks, onClickNewTask, onHandleUpdateTask }) => {
+export default ({ column, index, tasks, onClickNewTask, onHandleUpdateTask }) => {
   const styles = useStyle();
 
   const renderTasks = () => {
@@ -67,31 +67,38 @@ export default ({ column, tasks, onClickNewTask, onHandleUpdateTask }) => {
   ) : '';
 
   return (
-    <Grid
-      item
-      xs={12}
-      md={4}
-    >
-      <Grid item>
-        <Typography className={styles.columnTitle} variant="h4" component="h4">{column.title}</Typography>
-      </Grid>
+    <Draggable draggableId={column.id} index={index}>
+      {provided => (
+        <Grid
+          item
+          xs={12}
+          md={4}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          ref={provided.innerRef}
+        >
+          <Grid item>
+            <Typography className={styles.columnTitle} variant="h4" component="h4">{column.title}</Typography>
+          </Grid>
 
-      <div className={styles.taskColumn}>
-        { newTaskButton }
+          <div className={styles.taskColumn}>
+            { newTaskButton }
 
-        <Droppable droppableId={column.id}>
-          {(provided, snapshot) => (
-            <div
-              className={snapshot.isDraggingOver ? styles.activeTaskArea : styles.taskArea}
-              ref={provided.innerRef}
-              {...provided.droppableProps}
-            >
-              { renderTasks() }
-              { provided.placeholder }
-            </div>
-          )}
-        </Droppable>
-      </div>
-    </Grid>
+            <Droppable droppableId={column.id} type="task">
+              {(provided, snapshot) => (
+                <div
+                  className={snapshot.isDraggingOver ? styles.activeTaskArea : styles.taskArea}
+                  ref={provided.innerRef}
+                  {...provided.droppableProps}
+                >
+                  { renderTasks() }
+                  { provided.placeholder }
+                </div>
+              )}
+            </Droppable>
+          </div>
+        </Grid>
+      )}
+    </Draggable>
   )
 }

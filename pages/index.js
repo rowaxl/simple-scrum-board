@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Grid } from '@material-ui/core'
-import { DragDropContext } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { nanoid } from 'nanoid';
 
 import Head from '../components/head';
@@ -33,7 +33,7 @@ export default () => {
     },
   };
 
-  const initialColumnOrder = [Columns.TODO, Columns.DOING, Columns.DONE];
+  const [columnOrder, setColumnOrder] = useState([Columns.TODO, Columns.DOING, Columns.DONE]);
 
   const [tasks, setTasks] = useState({});
 
@@ -69,7 +69,7 @@ export default () => {
   }
 
   const onDragEnd = result => {
-    const { source, destination, draggableId } = result;
+    const { source, destination, draggableId, type } = result;
 
     if (!destination) return;
 
@@ -78,6 +78,15 @@ export default () => {
       destination.index === source.index
     ) {
       return;  // when user returned to original place
+    }
+
+    if (type === 'column') {
+      const newColumnOrder = Array.from(columnOrder);
+      newColumnOrder.splice(source.index, 1);
+      newColumnOrder.splice(destination.index, 0, draggableId);
+
+      setColumnOrder(newColumnOrder);
+      return;
     }
 
     const sourceColumn = columns[source.droppableId];
@@ -131,13 +140,14 @@ export default () => {
     });
   };
 
-  const renderColumns = initialColumnOrder.map(id => {
+  const renderColumns = columnOrder.map((id, index) => {
     const column = columns[id];
 
     return (
       <TaskList
         key={column.id}
         column={column}
+        index={index}
         tasks={column.taskIds.map(taskId => tasks[taskId])}
         onClickNewTask={onClickNewTask}
         onHandleUpdateTask={onHandleUpdateTask}
@@ -155,17 +165,25 @@ export default () => {
 
       <div className="app-wrap">
 
-        <Grid
-          container
-          direction="row"
-          justify="center"
-          alignItems="flex-start"
-          spacing={3}
-        >
-          <DragDropContext onDragEnd={onDragEnd}>
-            { renderColumns }
-          </DragDropContext>
-        </Grid>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId="columns-wrap" direction="horizontal" type="column">
+          {provided => (
+            <Grid
+              container
+              direction="row"
+              justify="center"
+              alignItems="flex-start"
+              spacing={3}
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
+              { renderColumns }
+              {provided.placeholder}
+            </Grid>
+          )}
+        </Droppable>
+        
+      </DragDropContext>
 
       </div>
     
