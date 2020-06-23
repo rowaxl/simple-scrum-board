@@ -1,19 +1,17 @@
 # Simple Scurm Board
 
 ## Overview
-React based web application for task board with iteration function.
-Tasks can drag-and-drop to move.
-Each iteration can calculate summary of planed and achived story points by burndown chart.
-Basically it save data on local storage, but cloud save and share to teamate.
+React.js based simple task board web application.
+Tasks and columns can drag-and-drop to move.
+It save todo data on local storage automatically.
 
 ## Pages
-- Home (Select board)
 - Task Board
-- About
 
 ### Frameworks
 - Next.js
 - UI: Material-UI/core
+- reaact-beautiful-dnd
 
 ### Environment
 - [Vercel](https://vercel.com/)
