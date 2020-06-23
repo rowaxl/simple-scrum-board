@@ -3,7 +3,7 @@ import { Grid, Typography, Card, CardActionArea } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 
-import TaskCard from './taskCard';
+import TaskCard from './TaskCard';
 
 const useStyle = makeStyles(theme => ({
   taskArea: {

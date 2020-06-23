@@ -6,7 +6,7 @@ import { nanoid } from 'nanoid';
 import Head from '../components/head';
 import Nav from '../components/nav';
 import Background from '../components/background';
-import TaskList from '../components/taskList';
+import TaskList from '../components/TaskList';
 
 const Columns = {
   TODO: 'TODO',
