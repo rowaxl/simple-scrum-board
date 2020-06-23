@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Grid } from '@material-ui/core'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { nanoid } from 'nanoid';
@@ -153,7 +153,31 @@ export default () => {
         onHandleUpdateTask={onHandleUpdateTask}
       />
     );
-  })
+  });
+
+  useEffect(() => {
+    const columns = localStorage.getItem('columns');
+    const columnOrder = localStorage.getItem('columnOrder');
+    const tasks = localStorage.getItem('tasks');
+
+    if (columns) {
+      setColumns(JSON.parse(columns));
+    }
+
+    if (columnOrder) {
+      setColumnOrder(JSON.parse(columnOrder));
+    }
+
+    if (tasks) {
+      setTasks(JSON.parse(tasks));
+    }
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('columns', JSON.stringify(columns));
+    localStorage.setItem('columnOrder', JSON.stringify(columnOrder));
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  });
 
   return (
     <div>
