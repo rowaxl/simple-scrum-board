@@ -49,6 +49,7 @@ const useStyle = makeStyles(theme => ({
     display: 'inline-block',
     marginLeft: 10,
     marginRight: 10,
+    width: '30%',
   }
 }));
 
