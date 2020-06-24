@@ -176,9 +176,6 @@ export default () => {
     localStorage.setItem('columns', JSON.stringify(columns));
     localStorage.setItem('columnOrder', JSON.stringify(columnOrder));
     localStorage.setItem('tasks', JSON.stringify(tasks));
-
-    console.log(columns);
-    console.log(tasks);
   });
 
   return (

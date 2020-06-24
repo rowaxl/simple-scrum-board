@@ -67,7 +67,7 @@ export default ({ column, index, tasks, onClickNewTask, onHandleUpdateTask }) =>
     renderTasks();
   }, [tasks]);
 
-  const renderTasks = () => {
+  const renderTasks = () => { 
     setRenderedTasks(
       tasks
         .filter(e => !e.archived)
