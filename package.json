@@ -1,14 +1,14 @@
 {
   "name": "create-next-app-default",
-  "version": "0.1.0",
-  "description": "",
+  "version": "1.0.0",
+  "description": "React.js based simple task board web application.",
   "main": "index.js",
   "scripts": {
     "dev": "next",
     "build": "next build",
     "start": "next start"
   },
-  "keywords": [],
+  "keywords": ["next", "beautiful-dnd", "react", "material-ui"],
   "author": "rowaxl",
   "license": "ISC",
   "dependencies": {
