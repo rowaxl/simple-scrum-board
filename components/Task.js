@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   activeTaskCards: {
     background: theme.palette.grey[400],
     opacity: 0.9,
-    minWidth: 275,
+    minWidth: 180,
     border: '2px solid #444',
     marginTop: 10,
     marginBottom: 10,
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative'
   },
   taskCards: {
-    minWidth: 275,
+    minWidth: 180,
     border: '2px solid #444',
     marginTop: 10,
     marginBottom: 10,
@@ -65,12 +65,12 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 10
   },
   titleForm: {
-    width: '100%',
-    marginTop: 10
+    marginTop: 10,
+    display: 'flex'
   },
   descriptionForm: {
-    width: '100%',
-    marginTop: 20
+    marginTop: 20,
+    display: 'flex'
   },
   buttonWrap: {
     display: 'inline-flex',

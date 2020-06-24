@@ -43,6 +43,12 @@ const useStyle = makeStyles(theme => ({
     verticalAlign: 'center',
     textAlign: 'center',
     marginBottom: 10
+  },
+  columnWrap: {
+    minWidth: 200,
+    display: 'inline-block',
+    marginLeft: 10,
+    marginRight: 10,
   }
 }));
 
@@ -62,8 +68,6 @@ export default ({ column, index, tasks, onClickNewTask, onHandleUpdateTask }) =>
   }, [tasks]);
 
   const renderTasks = () => {
-    if (tasks.length < 1) return;
-
     setRenderedTasks(
       tasks
         .filter(e => !e.archived)
@@ -84,10 +88,8 @@ export default ({ column, index, tasks, onClickNewTask, onHandleUpdateTask }) =>
   return (
     <Draggable draggableId={column.id} index={index}>
       {provided => (
-        <Grid
-          item
-          xs={12}
-          md={4}
+        <div
+          className={styles.columnWrap}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
@@ -112,7 +114,7 @@ export default ({ column, index, tasks, onClickNewTask, onHandleUpdateTask }) =>
               )}
             </Droppable>
           </div>
-        </Grid>
+        </div>
       )}
     </Draggable>
   )

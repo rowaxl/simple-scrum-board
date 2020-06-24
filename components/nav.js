@@ -15,7 +15,7 @@ const Nav = () => (
         font-family: Roboto;
       }
       #navi {
-        width: 100vw;
+        width: 100%;
         height: 40px;
         background-color: rgba(255, 255, 255, 0.6);
         z-index: 1000;

@@ -42,7 +42,6 @@ export default () => {
   const onClickNewTask = () => {
     const newTask = {
       id: nanoid(),
-      column: Columns.TODO,
       title: 'New Task',
       description: '### Description\n- Edit this card\n- Make a plan to process this task',
       archived: false,
@@ -177,6 +176,9 @@ export default () => {
     localStorage.setItem('columns', JSON.stringify(columns));
     localStorage.setItem('columnOrder', JSON.stringify(columnOrder));
     localStorage.setItem('tasks', JSON.stringify(tasks));
+
+    console.log(columns);
+    console.log(tasks);
   });
 
   return (
@@ -215,14 +217,16 @@ export default () => {
       <style jsx>{`
       .app-wrap {
         height: 100vh;
-        width: 100vw;
-        min-width: 900px;
+        width: max-content;
+        min-width: 100vw;
         background: rgba(0, 0, 0, 0.3);
         z-index: 1001;
         color: #fff;
         padding-top: 60px;
         padding-right: 20px;
         padding-left: 20px;
+        overflow: scroll;
+        display: inline-flex;
       }
     `}</style>
     </div>

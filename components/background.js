@@ -5,7 +5,8 @@ export default () => {
   
       <style jsx>{`
         #background {
-          width: 101vw;
+          min-width: 101vw;
+          width: 100%;
           height: 101vh;
           position: fixed;
           z-index: -1;
